@@ -1,6 +1,7 @@
 99_other
 exp_procedure
 00_data
+02_computational_modeling/stan_diags
 .Rproj.user
 .Rhistory
 *.RData
