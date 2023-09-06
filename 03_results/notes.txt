@@ -1,0 +1,13 @@
+1. three subs 253, 303, 955 replied that they had 16, 5, and 7 vax respectively
+	obviously false, replaced with 1, 1, and 2 based on their replies to question about vax with specific vaccines
+	prob bots anyway, but only three subjects so we keep them anyway
+2. one sub claimed to have 17 yo, probably mistake, prolific requiers 18 >=, corrected to 18
+
+3. based on sample characteristic:
+	a. race recoded to white v. non-white
+	b. covid_no to 0 and 1 >=
+	c. get_covid to 0-1 & 2-3
+	d. other sex randomly assigned to male or female
+	e. covid_vax_no to 0 & 1-2 & 3-4
+
+4. Minor issues with in-in events for subs 1098 1187 - corrected; only affected data of these two subs!!

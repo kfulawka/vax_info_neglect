@@ -1,0 +1,7 @@
+99_other
+exp_procedure
+00_data
+.Rproj.user
+.Rhistory
+*.RData
+!01_statistical_modeling/data_list.RData

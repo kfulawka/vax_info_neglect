@@ -1,0 +1,7 @@
+Results of the model specification analyses. All figures show regression coefficients with 95% credible intervals.
+Fig4a and both Fig5a show the relationship between the vaccination attitudes and the frequency of information neglect types, and attentional probability negelcts (APN) of benefits and side effects when the relationship is estimated with and withouth deomgraphic variables included in the regression models.
+
+Fig4b_5b shows the relationship between probability of accepting a vaccine and information neglect (ineg1, ineg2), APN of mild, severe, and exterem side effects, and of benefits (se_mild_pn1, se_sev_pn1, se_ext_pn1, b_pn1) with and withouth deomgraphic variables included in the regression models.
+
+Fig5_spec_curve shows the regression regression coefficients of the relationship between probability of accpeting a vaccine and information neglect and APNs under various combinations of these.
+Tehse results show that the efefcts of information neglect, and the ANPs of extreme and mild side effects are qualitatively the same under all posible regresion model specifications.

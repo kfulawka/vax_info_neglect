@@ -1,0 +1,9 @@
+vax,SE1,SE2,SE3,P_SE1,P_SE2,P_SE3,CRE1,CRE2,CRE3,P_CRE1,P_CRE2,P_CRE3
+AstraZeneca,blood_clots,imm_sys_nerves,imm_sys_blood,0.00002,0.00001,0.000005,against_cov,against_cov_sev,against_cov_death,0.78,0.91,0.92
+BioNTech/Pfizer,myocarditis,pericarditis,sev_fatigue,0.000016,0.000028,0.046,against_cov,against_cov_sev,against_cov_death,0.95,0.96,0.98
+Moderna,myocarditis,pericarditis,sev_myalgia,0.000025,0.000032,0.1,against_cov,against_cov_sev,against_cov_death,0.96,0.97,0.98
+Johnson & Johnson,blood_clots,imm_sys_nerves,sev_myalgia,0.0000038,0.0000098,0.014,against_cov,against_cov_sev,against_cov_death,0.71,0.86,0.82
+Novavax,sev_malaise,sev_fatigue,sev_myalgia,0.063,0.083,0.049,against_cov,against_cov_sev,against_cov_death,0.9,0.87,0
+Sinovac,fac_paralysis,fatigue,myalgia,0.00005,0.082,0.04,against_cov,against_cov_sev,against_cov_death,0.53,0.71,0.73
+Bharat Biotech,fever,headache,fatigue,0.0067,0.0067,0.0032,against_cov,against_cov_sev,against_cov_death,0.78,0.93,0
+CanSino Biologics,sev_drowsine,sev_headache,sev_myalgia,0.042,0.054,0.041,against_cov,against_cov_sev,against_cov_death,0.58,0.92,0
