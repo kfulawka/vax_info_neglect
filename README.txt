@@ -7,3 +7,6 @@ Files in the folders numbered 01-03 allow to reporduce all the analyses reported
 Folder 04_online_supplement contains additional figures mentioned in the corresponding Methods section.
 
 Raw data is in the file: 01_statistical_modeling/data_list.RData
+
+
+NOTE: Data is available under the PDDL license and the code is available under the MIT license.  
