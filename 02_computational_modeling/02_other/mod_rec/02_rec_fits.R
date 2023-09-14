@@ -91,7 +91,7 @@ rec_res_l = array(NA, c(L, 3, 3),
 for(l in 1:L) {
   
   # for each attitude
-  for(i in vax_at[2]) {
+  for(i in vax_at) {
     
     # for each simulated data set
     for(j in mod_n) {
