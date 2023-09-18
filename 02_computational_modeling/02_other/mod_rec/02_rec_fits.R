@@ -91,7 +91,7 @@ rec_res_l = array(NA, c(L, 3, 3),
 for(l in 1:L) {
   
   # for each attitude
-  for(i in vax_at) {
+  for(i in vax_at[3]) {
     
     # for each simulated data set
     for(j in mod_n) {
@@ -142,4 +142,4 @@ for(l in 1:L) {
 
 # output
 rm( list = setdiff(ls(), c('rec_res', 'rec_res_l', 'mod_n')) )
-save.image('02_computational_modeling/02_other/mod_rec/rec_res.RData')
+save.image('02_computational_modeling/02_other/mod_rec/rec_res3.RData')

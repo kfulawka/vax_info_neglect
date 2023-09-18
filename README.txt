@@ -1,6 +1,6 @@
 Repository for the paper:
 
-COVID-19 vaccine refusal is associated with information neglect and distortion
+Information neglect and distortion shape COVID-19 vaccination decisions
 by Kamil Fulawka, Ralph Hertwig, and Thorsten Pachur.
 
 Files in the folders numbered 01-03 allow to reporduce all the analyses reported in the paper plus some additional evaluations of the model's fit and performance.
