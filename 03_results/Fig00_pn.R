@@ -392,10 +392,18 @@ f0 = (ps | f0a | f0c | f0d) +
 fig0 = (f0 / time_plt) +
   plot_layout(heights = c(1, .1))
 
-ggsave('03_results/figures/Fig00.jpg',
+# ggsave('03_results/figures/Fig00.jpg',
+#        plot = fig0,
+#        units = 'cm',
+#        height = 10,
+#        width = 16,
+#        dpi = 700,
+#        scale = 1.75)
+
+ggsave('03_results/figures/Fig00.pdf',
        plot = fig0,
+       device = 'pdf',
        units = 'cm',
        height = 10,
        width = 16,
-       dpi = 700,
        scale = 1.75)

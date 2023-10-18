@@ -1,2 +1,2 @@
 Comparisons of out-of-sample predicitive performance ofthe statistical mdoels reported in the main paper (m1), to the null models, i.e., models including random intercepts for participants but no predictors (m0).
-Higher elpd values indicate better model performance. See the main paper for the definition of the elpd statistic.
+Higher elpd values indicate better model performance. See the SI appendix for the definition of the elpd statistic.

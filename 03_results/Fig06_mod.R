@@ -24,12 +24,12 @@ fig06 = (fig06t / fig06b) +
         plot.tag = element_text(face = 'bold'))
 
 # save to file
-ggsave('03_results/figures/Fig06.jpg',
+ggsave('03_results/figures/Fig06.pdf',
        plot = fig06,
        units = 'cm',
        height = 12,
        width = 16,
-       dpi = 700,
+       device = 'pdf',
        scale = 1.5)
 
 # # spudm -------------------------------------------------------------------
