@@ -1,3 +1,3 @@
-Fig01a and Fig01b show the results of parmaetre recovery analsyes for the computatinal models reported in the main results section.
+Fig01a and Fig01b show the results of parmaeter recovery analsyes for the computatinal models reported in the main results section.
 Fig02a and Fig02b show posterior predictive checks (columns 1-2) and individual-level out-of-sample performance (columns 3-4) of a prospect theory reported in the paper (i.e., with individual decision biases and vax-effects) and of a standard implementation of prospect theory, respecitvely.
-Fig03a and Fig03b show addtional results of model performance comparisons discussed in the last two paragraphs of the section SI Appendix: Computational Modeling --- Model Building and Evaluation.
+Fig03a and Fig03b show addtional results of model performance comparisons discussed in the last two paragraphs of the Supplementary Information.

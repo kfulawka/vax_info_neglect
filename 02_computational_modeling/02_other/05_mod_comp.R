@@ -17,7 +17,6 @@ mods = list(pt_reg = ispt_reg,
             oh = ioh,
             pt = ispt)
 
-
 # elpd comparison ---------------------------------------------------------
 
 source('02_computational_modeling/00_functions/elpd_plots.R')
@@ -29,4 +28,4 @@ pp = tot_elpd_plot(mods,
                    # comp_names = names(comp_list),
                    # loo_weights = F,
                    write = T,
-                   save_path = '04_online_supplement/03_computational_modeling/Fig03a_performance_comparison.jpg')
+                   save_path = '04_online_supplement/03_computational_modeling/Fig03a_performance_comparison.pdf')

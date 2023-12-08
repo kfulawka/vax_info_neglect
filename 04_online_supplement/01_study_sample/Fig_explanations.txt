@@ -1,2 +1,0 @@
-The figures show initial (i.e., raw) and recoded distributions of the demographic variables and their relationship with self reported vaccination attitude and number of covid-19 vaccines.
-The red numbers in the figures give percentages of the given factor level within the study sample and sum up to 100% within each panel.

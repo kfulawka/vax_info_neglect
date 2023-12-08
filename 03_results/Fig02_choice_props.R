@@ -7,6 +7,8 @@ library(brms)
 library(future.apply)
 # library(emmeans)
 
+source('03_results/functions/99_fig_to_pdf.R')
+
 # data --------------------------------------------------------------------
 
 # data prepared for the analyses
@@ -134,10 +136,8 @@ fig02 = fig02_top / fig02_mid / fig02_bottom +
   plot_layout(heights = c(1, 1, 1)) 
 
 # save to file
-ggsave('03_results/figures/Fig02.pdf',
-       plot = fig02,
-       device = 'pdf',
-       units = 'cm',
-       height = 11,
-       width = 16,
-       scale = 1.4)
+pdf_save(path = '03_results/figures/Fig02.pdf',
+         fig = fig02,
+         height = 11,
+         width = 16,
+         scale = 1.4)

@@ -4,6 +4,8 @@ library(ggplot2)
 library(data.table)
 library(patchwork)
 
+source('03_results/functions/99_fig_to_pdf.R')
+
 # generating models
 load("02_computational_modeling/posteriors/01_ispt_vc_irb_ct.RData")
 
@@ -29,7 +31,7 @@ ip_splts = lapply(names(ispt), function(at) {
     
     d = data.frame(gp = colMeans(gm$pars$i_pars[[x]]),
                    rp = colMeans(rm$pars$i_pars[[x]])
-                   )
+    )
     
     # limits 
     if(x == 'irb') ll = c(-6, 4) else ll = c(0, 1)
@@ -56,13 +58,11 @@ ip_splts = lapply(names(ispt), function(at) {
 
 ip_splt = wrap_plots(ip_splts, nrow = 3, ncol = 1)
 
-ggsave('04_online_supplement/03_computational_modeling/Fig01a_individual_parameter_recovery.jpg',
-       units = 'cm',
-       height = 20, 
-       width = 20,
-       dpi = 700,
-       scale = 1.2)
-
+pdf_save(path = '04_online_supplement/03_computational_modeling/Fig01a_individual_parameter_recovery.pdf',
+         fig = ip_splt,
+         height = 20, 
+         width = 20,
+         scale = 1.2)
 
 # pop-lvl parameters ------------------------------------------------------
 
@@ -113,9 +113,8 @@ pp_hist = wrap_plots(pp_hists, nrow = 3, ncol = 1) +
   plot_layout(guides = "collect") &
   theme(legend.position = 'bottom')
 
-ggsave('04_online_supplement/03_computational_modeling/Fig01b_population_parameter_recovery.jpg',
-       units = 'cm',
-       height = 15, 
-       width = 20,
-       dpi = 700,
-       scale = 1.2)
+pdf_save(path = '04_online_supplement/03_computational_modeling/Fig01b_population_parameter_recovery.pdf',
+         fig = pp_hist,
+         height = 15, 
+         width = 20,
+         scale = 1.2)

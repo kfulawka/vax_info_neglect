@@ -9,6 +9,7 @@ library(data.table)
 library(viridis)
 
 source('02_computational_modeling/00_functions/extract_loos.R')
+source('03_results/functions/99_fig_to_pdf.R')
 
 tot_elpd_plot = function(M, 
                          g = c('anti', 'neu', 'pro'),
@@ -73,7 +74,7 @@ tot_elpd_plot = function(M,
     geom_hline(yintercept = seq(.5, .8, .05),
                lty = 2, 
                colour = rgb(0, 0, 0, .3)
-               ) +
+    ) +
     ggtitle('Approximate out-of-sample model performance') +
     theme_bw() +
     theme(legend.position = 'none',
@@ -92,10 +93,10 @@ tot_elpd_plot = function(M,
                                       y = elpd_d,
                                       col = covid_vax_attitude)) +
     geom_pointrange(aes(ymin = li1,
-                       ymax = ui1),
-                   lwd = 1.5,
-                   fill = 'white',
-                   alpha = .2) + 
+                        ymax = ui1),
+                    lwd = 1.5,
+                    fill = 'white',
+                    alpha = .2) + 
     geom_linerange(aes(ymin = li2,
                        ymax = ui2),
                    lwd = 1,
@@ -111,7 +112,7 @@ tot_elpd_plot = function(M,
     ylab('elpd difference') +
     scale_x_discrete(name = 'Comparison of model performance'
                      # labels = comp_names
-                     ) +
+    ) +
     geom_hline(yintercept = 0,
                colour = rgb(0, 0, 0, .7),
                lty = 2) +
@@ -164,13 +165,11 @@ tot_elpd_plot = function(M,
   if(write) {
     
     # save to file
-    ggsave(save_path,
-           plot = elpd_plt,
-           units = 'cm',
-           height = 9,
-           width = 12,
-           dpi = 700,
-           scale = 1.5)
+    pdf_save(path = save_path,
+             fig = elpd_plt,
+             height = 7,
+             width = 12,
+             scale = 1.5)
   }
   
   # return ggpupr object

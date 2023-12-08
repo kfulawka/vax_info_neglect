@@ -3,6 +3,8 @@ library(ggplot2)
 library(patchwork)
 library(data.table)
 
+source('03_results/functions/99_fig_to_pdf.R')
+
 # models  -----------------------------------------------------------------
 
 load('01_statistical_modeling/03_choice_info_neglect_spec_curve.RData') # v2 contains covid_vax_no---the results are the same
@@ -221,10 +223,8 @@ spec_curves_plts = lapply(m_preds, function(pr) {
 # final figure
 fig_spec_curv = wrap_plots(spec_curves_plts, nrow = 1)
 
-ggsave('04_online_supplement/02_statistical_modeling/model_specification_analyses/Fig_spec_curve.jpg',
-       plot = fig_spec_curv,
-       scale = 1.4,
-       units = 'cm',
-       width = 16,
-       height = 4,
-       dpi = 700)
+pdf_save(path = '04_online_supplement/02_statistical_modeling/model_specification_analyses/Fig_spec_curve.pdf',
+         fig = fig_spec_curv,
+         scale = 1.4,
+         width = 16,
+         height = 4)

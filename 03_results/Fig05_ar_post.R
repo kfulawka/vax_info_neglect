@@ -94,10 +94,9 @@ Fig05 = wrap_plots(ar_plt, nrow = 1, ncol = 4) +
   theme(legend.position = 'bottom')
 
 # save to file
-ggsave('results/figures/Fig05.jpg',
-       plot = Fig05,
-       units = 'cm',
-       height = 5,
-       width = 16,
-       dpi = 700,
-       scale = 1.5)
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '03_results/figures/Fig05.jpg',
+         fig = Fig05,
+         height = 5,
+         width = 16,
+         scale = 1.5)

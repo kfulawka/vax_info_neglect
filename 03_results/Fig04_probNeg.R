@@ -389,7 +389,6 @@ coefs_pnot_sep_plt = ggplot(data = apn_at_ff,
         axis.text.y = element_blank(),
         legend.background = element_rect(fill = rgb(1, 1, 1, 0)))
 
-
 # final figure ------------------------------------------------------------
 
 fig04t = (pn_ce_plt | co_pnot_plts[[1]] ) +
@@ -404,14 +403,12 @@ fig04 = (fig04t / fig04b) +
         plot.tag = element_text(face = 'bold')) 
 
 # save to file
-ggsave('03_results/figures/Fig04.pdf',
-       plot = fig04,
-       units = 'cm',
-       height = 10,
-       width = 16,
-       device = 'pdf',
-       scale = 1.4)
-
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '03_results/figures/Fig04.pdf',
+         fig = fig04,
+         height = 10,
+         width = 16,
+         scale = 1.4)
 # # spudm figs --------------------------------------------------------------
 # 
 # # save to file

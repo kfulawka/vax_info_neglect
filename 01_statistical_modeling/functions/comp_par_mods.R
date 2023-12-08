@@ -17,6 +17,10 @@ bor_mod = function(m, or = F) {
   # exclude intercept
   ff = ff[ff$par != 'Intercept', ]
   
+  # change sign of inegs (for fig 4a, so they show odds ratio for refusal instead of acceptance)
+  ff[ff$par == 'ineg1', c('m', 'li', 'ui')] = ff[ff$par == 'ineg1', c('m', 'li', 'ui')] * -1
+  ff[ff$par == 'ineg2', c('m', 'li', 'ui')] = ff[ff$par == 'ineg2', c('m', 'li', 'ui')] * -1
+  
   # transform into odds ratio
   if(or) { ff[,1:3] = exp( ff[,1:3] ) }
   

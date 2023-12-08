@@ -253,14 +253,12 @@ fig03 = plt_ineg_type_pp + co_se_ce_plts[[1]] + co_se_ce_plts[[2]] +
         plot.tag = element_text(face = 'bold')) 
 
 # save to file
-ggsave('03_results/figures/Fig03.pdf',
-       plot = fig03,
-       units = 'cm',
-       device = 'pdf',
-       height = 8,
-       width = 16,
-       scale = 1.4)
-
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '03_results/figures/Fig03.pdf',
+         fig = fig03,
+         height = 8,
+         width = 16,
+         scale = 1.4)
 # # spudm figs --------------------------------------------------------------
 # 
 # # save to file

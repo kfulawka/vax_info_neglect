@@ -89,13 +89,12 @@ fig_stat_perf = wrap_plots(list(m03_elpd_fig, m02_ineg_fig, m02_apn_se_fig, m02_
                                 m04_extreme_se_fig, m04_severe_se_fig, m04_mild_se_fig, m04_benefits_fig),
                            nrow = 2, ncol = 4)
 
-ggsave('04_online_supplement/02_statistical_modeling/model_evaluation/Fig_elpd_loo_performance.jpg',
-       plot = fig_stat_perf,
-       scale = 2,
-       units = 'cm',
-       width = 16,
-       height = 8,
-       dpi = 700)
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '04_online_supplement/02_statistical_modeling/model_evaluation/Fig_elpd_loo_perf.pdf',
+         fig = fig_stat_perf,
+         width = 16,
+         height = 6,
+         scale = 2)
 
 # Accuracy ----------------------------------------------------------------
 

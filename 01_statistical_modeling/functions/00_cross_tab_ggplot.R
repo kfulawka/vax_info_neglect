@@ -1,7 +1,11 @@
 # function to generate descriptive plots
 cross_tab_ggplot = function(x, 
                             g = 'covid_vax_attitude',
-                            data = d) {
+                            g_n = g,
+                            x_n = x,
+                            tilt_x_txt = F,
+                            data = d,
+                            g_cols = viridis::viridis(3, .5)) {
   
   # get data
   xx = d[,c(g, x)]
@@ -25,7 +29,7 @@ cross_tab_ggplot = function(x,
   # test results into string
   test_res = paste0('V = ', V, 
                     ifelse(round(chi_sq_r$p.value, 3) == 0, 
-                           ', p < .001',
+                           ', p < 0.001',
                            paste(', p = ', round(chi_sq_r$p.value, 3))))
   
   # figure
@@ -36,21 +40,22 @@ cross_tab_ggplot = function(x,
     geom_bar(mapping = aes(fill = x),
              position = "stack", 
              stat = "identity") +
-    scale_fill_manual(name = g, 
-                      values = viridis::inferno( nl, alpha = .5)) +
-    xlab(x) +
+    scale_fill_manual(name = g_n, 
+                      values = g_cols) +
+    xlab(x_n) +
     ggtitle(test_res) +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 12))
+    theme_bw() 
+  
+  if(tilt_x_txt) plt = plt + theme(axis.text.x = element_text(angle = 12))
   
   # add frequencies
   frq = data.frame(table(xx[,2]) / nrow(xx))
   frq$Freq = round(frq$Freq * 100, 1)
   plt = plt + geom_text(data = frq,
                         mapping = aes(x = Var1,
-                                      y = -10,
+                                      y = max(dx$Freq),
                                       label = Freq),
-                        col = 'red')
+                        col = 'black')
   
   # 
   return(plt)

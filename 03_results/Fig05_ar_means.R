@@ -164,10 +164,9 @@ Fig05s = lapply(levels(pp_dat$outcome), function(o) {
 Fig05 = wrap_plots(Fig05s, nrow = 1, ncol = 4)
 
 # save to file
-ggsave('03_results/figures/Fig05.pdf',
-       plot = Fig05,
-       units = 'cm',
-       height = 4,
-       width = 16,
-       device = 'pdf',
-       scale = 1.4)
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '03_results/figures/Fig05.jpg',
+         fig = Fig05,
+         height = 4,
+         width = 16,
+         scale = 1.4)

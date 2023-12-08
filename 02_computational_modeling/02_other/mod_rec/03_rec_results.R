@@ -29,7 +29,7 @@ cm = lapply(att, function(a) {
     # confusion matrix
     table(a[,m]) / L
     
-    } )
+  } )
   
   return( t(r) )
   
@@ -65,7 +65,7 @@ cm_pl = function(cm) {
            id.vars = 'simulated',
            variable.name = 'fitted')
   d = data.frame(d)
-
+  
   d[,'simulated'] = factor(d[,'simulated'],
                            levels = mod_n[3:1],
                            ordered = T)
@@ -73,7 +73,7 @@ cm_pl = function(cm) {
   d[,'fitted'] = factor(d[,'fitted'],
                         levels = mod_n,
                         ordered = T)
-
+  
   # ggplot 
   plt = ggplot(data = d) +
     geom_tile(mapping = aes(x = fitted, 
@@ -90,7 +90,7 @@ cm_pl = function(cm) {
   
   # 
   return(plt)
-
+  
 }
 
 # apply to confusion matrices
@@ -103,10 +103,9 @@ icm_plt = wrap_plots(icm_plts, nrow = 1, ncol = 3)
 
 plt = (cm_plt/icm_plt) + plot_layout(guides = 'collect')
 
-ggsave('04_online_supplement/03_computational_modeling/Fig03b_model_recovery.jpg',
-       plot = plt,
-       units = 'cm',
-       height = 11, 
-       width = 20,
-       dpi = 700,
-       scale = 1.5)
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '04_online_supplement/03_computational_modeling/Fig03b_model_recovery.pdf',
+         fig = plt,
+         height = 9, 
+         width = 16,
+         scale = 1.5)
