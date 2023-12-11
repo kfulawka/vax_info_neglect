@@ -269,10 +269,11 @@ ff$par = factor(ff$par,
 
 ff$par_g = factor(NA,
                   levels = c('APNs and information neglect (IN)', 
-                             'Vaccine-related', 
+                             'Vaccination attitude and history, and vaccine brand', 
                              'Demographics'),
                   ordered = T)
-ff$par_g[ff$par %in% grep('vax', ff$par, value = T)] = 'Vaccine-related'
+
+ff$par_g[ff$par %in% grep('vax', ff$par, value = T)] = 'Vaccination attitude and history, and vaccine brand'
 ff$par_g[ff$par %in% grep('pn|ineg', ff$par, value = T)] = 'APNs and information neglect (IN)'
 ff$par_g[is.na(ff$par_g)] = 'Demographics'
 
@@ -321,7 +322,7 @@ coefs_pnot_plt = ggplot(data = ff,
                                    angle = 90, 
                                    vjust = .5,
                                    hjust = 1),
-        legend.position = c(.2, .8),
+        legend.position = c(.4, .8),
         legend.title = element_blank(),
         legend.key = element_rect(fill = NA),
         legend.background = element_rect(fill = rgb(1, 1, 1, 0)))

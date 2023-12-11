@@ -40,6 +40,8 @@ for(i in c(in_preds, r_preds)) {
 }
 rm(i)
 
+contrasts(d$ineg) = contrasts(d$ineg) * -1
+
 # main analyses -----------------------------------------------------------
 
 # regression formulas to fit
@@ -58,7 +60,7 @@ ff = list(main_v1 = bf( paste0('choice ~ ',
 
 
 # estimate posteriors
-m03_co_in = lapply(ff, function(f) {
+m03_co_in = lapply(ff[4], function(f) {
   
   brm(formula = f,
       family = bernoulli(),

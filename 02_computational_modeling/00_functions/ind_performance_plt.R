@@ -6,7 +6,8 @@ source('02_computational_modeling/00_functions/ind_elpd.R')
 ind_performance_plt = function(fit,
                                at_col = rgb(.8, .1, .1, .5),
                                data_col = rgb(.5, .5, .5, .8),
-                               vax_att = NULL) {
+                               vax_att = NULL,
+                               ind_elpd = F) {
   
   # fit is a model fit object returned by my fitting script
   # for a single group!!
@@ -63,10 +64,10 @@ ind_performance_plt = function(fit,
           legend.position = c(.15, .9),
           legend.background = element_rect(fill = NA),
           legend.key = element_rect(fill = NA))
-
+  
   
   # PANEL B: P(ACCEPT|IND) --------------------------------------------------
-
+  
   pa_ind = pa$p_accept_ind
   
   # proportion of 0-8 accepts
@@ -76,7 +77,7 @@ ind_performance_plt = function(fit,
   prop_accept = data.frame(prop_accept)
   prop_accept$Var1 = as.numeric(as.character(prop_accept$Var1))
   prop_accept$Freq = round(prop_accept$Freq, 2)
-
+  
   # order
   pa_ind = pa_ind[order(pa_ind$observed, pa_ind$model_loo), ]
   pa_ind$ord = 1:nrow(pa_ind)
@@ -147,29 +148,39 @@ ind_performance_plt = function(fit,
                lty = 2) +
     theme_bw()
   
-  
   # PANEL D: IND ELPD -------------------------------------------------------
   
-  ill = ill[order(ill$ill), ]
-  ill$ill_ord = 1:nrow(ill)
-  
-  fig_d = ggplot(data = ill,
-                 mapping = aes(ill_ord, ill)) +
-    geom_point(col = at_col) +
-    scale_x_continuous('participant (ordered by y-axis)',
-                       breaks = seq(1, nrow(ill), 50),
-                       expand = c(.01, .01)) +
-    scale_y_continuous('individual elpd_loo',
-                       limits = c(NA, 0)) +
-    geom_hline(yintercept = sum(log(rep(.5, 8))),
-               lty = 2) +
-    theme_bw()
-  
-  
-  # FINAL FIGURE ------------------------------------------------------------
+  if(ind_elpd) {
+    
+    
+    ill = ill[order(ill$ill), ]
+    ill$ill_ord = 1:nrow(ill)
+    
+    fig_d = ggplot(data = ill,
+                   mapping = aes(ill_ord, ill)) +
+      geom_point(col = at_col) +
+      scale_x_continuous('participant (ordered by y-axis)',
+                         breaks = seq(1, nrow(ill), 50),
+                         expand = c(.01, .01)) +
+      scale_y_continuous('individual elpd_loo',
+                         limits = c(NA, 0)) +
+      geom_hline(yintercept = sum(log(rep(.5, 8))),
+                 lty = 2) +
+      theme_bw()
+    
+    
+    # FINAL FIGURE ------------------------------------------------------------
+    
+    fig = (fig_a | fig_b | fig_c | fig_d)
+    
+  } else {
+    
+    # FINAL FIGURE ------------------------------------------------------------
+    
+    fig = (fig_a | fig_b | fig_c )
+    
+  }
 
-  fig = (fig_a | fig_b | fig_c | fig_d)
-  
   return(fig)
   
 }

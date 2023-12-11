@@ -71,10 +71,10 @@ tot_elpd_plot = function(M,
                        breaks = seq(.5, 1, .05),
                        minor_breaks = seq(.5, 1, .01),
                        limits = c(.5, .8)) +
-    geom_hline(yintercept = seq(.5, .8, .05),
-               lty = 2, 
-               colour = rgb(0, 0, 0, .3)
-    ) +
+    # geom_hline(yintercept = seq(.5, .8, .05),
+    #            lty = 2, 
+    #            colour = rgb(0, 0, 0, .3)
+    # ) +
     ggtitle('Approximate out-of-sample model performance') +
     theme_bw() +
     theme(legend.position = 'none',
@@ -110,7 +110,7 @@ tot_elpd_plot = function(M,
                labeller = labeller(covid_vax_attitude = vax_g_names)) +
     scale_color_manual(values = vax_col) +
     ylab('elpd difference') +
-    scale_x_discrete(name = 'Comparison of model performance'
+    scale_x_discrete(name = 'Compared models'
                      # labels = comp_names
     ) +
     geom_hline(yintercept = 0,
@@ -167,9 +167,9 @@ tot_elpd_plot = function(M,
     # save to file
     pdf_save(path = save_path,
              fig = elpd_plt,
-             height = 7,
+             height = 8,
              width = 12,
-             scale = 1.5)
+             scale = 1.2)
   }
   
   # return ggpupr object

@@ -16,6 +16,7 @@ load('02_computational_modeling/posteriors/01b_ispt_vc_irb_ct_recovery.RData')
 
 # ind-lvl parameters
 ipars = c('ibeta', 'igam', 'irb'); names(ipars) = ipars
+ipars_n = c('lambda_i', 'gamma_i', 'beta_i'); names(ipars_n) = ipars
 
 # scatterplots
 ip_splts = lapply(names(ispt), function(at) {
@@ -40,9 +41,9 @@ ip_splts = lapply(names(ispt), function(at) {
     plt = ggplot(d, mapping = aes(x = gp,
                                   y = rp)) + 
       geom_point(alpha = .5) +
-      scale_x_continuous(paste('Generating individual mean', x),
+      scale_x_continuous(paste0('Generating ', ipars_n[x]),
                          limits = ll) +
-      scale_y_continuous(paste('Recovered individual mean', x),
+      scale_y_continuous(paste0('Recovered ', ipars_n[x]),
                          limits = ll) +
       geom_abline(slope = 1, intercept = 0, col = 'red') +
       ggtitle(at,
@@ -60,14 +61,15 @@ ip_splt = wrap_plots(ip_splts, nrow = 3, ncol = 1)
 
 pdf_save(path = '04_online_supplement/03_computational_modeling/Fig01a_individual_parameter_recovery.pdf',
          fig = ip_splt,
-         height = 20, 
-         width = 20,
+         height = 16, 
+         width = 16,
          scale = 1.2)
 
 # pop-lvl parameters ------------------------------------------------------
 
 # pop-lvl parameters
 ppars = c('alpha', 'beta', 'gam', 'phi', 'rb'); names(ppars) = ppars
+ppars_n = c('alpha', 'lambda', 'gamma', 'phi', 'beta'); names(ppars_n) = ppars
 
 lls = list(c(0, 6), 0:1, 0:1, 0:1, c(-5, 2))
 names(lls) = ppars
@@ -94,7 +96,7 @@ pp_hists = lapply(names(ispt), function(at) {
       geom_density(alpha = .8) +
       scale_color_manual('Parameter',
                          values = c('blue', 'red')) +
-      xlab(x) +
+      xlab(ppars_n[x]) +
       xlim(lls[[x]]) +
       ggtitle(at) +
       theme_bw() +
@@ -115,6 +117,6 @@ pp_hist = wrap_plots(pp_hists, nrow = 3, ncol = 1) +
 
 pdf_save(path = '04_online_supplement/03_computational_modeling/Fig01b_population_parameter_recovery.pdf',
          fig = pp_hist,
-         height = 15, 
-         width = 20,
+         height = 12, 
+         width = 16,
          scale = 1.2)

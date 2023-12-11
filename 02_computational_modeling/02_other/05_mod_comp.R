@@ -12,10 +12,10 @@ load("02_computational_modeling/posteriors/03_ioh_rb_ct.RData")
 load("02_computational_modeling/posteriors/00_ispt_regular.RData")
 
 # 
-mods = list(pt_reg = ispt_reg,
+mods = list(pt = ispt_reg,
             db = irb,
             oh = ioh,
-            pt = ispt)
+            pte = ispt)
 
 # elpd comparison ---------------------------------------------------------
 
@@ -24,7 +24,7 @@ source('02_computational_modeling/00_functions/elpd_plots.R')
 pp = tot_elpd_plot(mods,
                    g = c('anti', 'neu', 'pro'),
                    m_names = names(mods),
-                   comp_list = list(oh_db = c(3, 2), pt_oh = c(4, 3), pt_db = c(4, 2)),
+                   comp_list = list(oh_db = c(3, 2), pte_oh = c(4, 3), pte_db = c(4, 2)),
                    # comp_names = names(comp_list),
                    # loo_weights = F,
                    write = T,
