@@ -4,6 +4,7 @@ cross_tab_ggplot = function(x,
                             g_n = g,
                             x_n = x,
                             tilt_x_txt = F,
+                            proportion = F,
                             data = d,
                             g_cols = viridis::viridis(3, .5)) {
   
@@ -16,7 +17,7 @@ cross_tab_ggplot = function(x,
   # table
   x_tab = table(xx)
   dx = data.frame(x_tab)
-  dx$proportion = data.frame( prop.table(x_tab, 1))[,3]
+  dx$proportion = data.frame( prop.table(x_tab, 2))[,3]
   
   # chi square test
   chi_sq_r = chisq.test(x_tab,
@@ -34,14 +35,18 @@ cross_tab_ggplot = function(x,
   
   # figure
   colnames(dx)[1:2] = c('x', 'y')
+  
+  if(proportion) dx$yy = dx$proportion else dx$yy = dx$Freq
+
   plt = ggplot(data = dx, 
                mapping = aes(x = y,
-                             y = Freq)) +
+                             y = yy)) +
     geom_bar(mapping = aes(fill = x),
              position = "stack", 
              stat = "identity") +
     scale_fill_manual(name = g_n, 
                       values = g_cols) +
+    ylab(ifelse(proportion, 'proportion', 'frequency')) +
     xlab(x_n) +
     ggtitle(test_res) +
     theme_bw() 
@@ -49,14 +54,18 @@ cross_tab_ggplot = function(x,
   if(tilt_x_txt) plt = plt + theme(axis.text.x = element_text(angle = 12))
   
   # add frequencies
-  frq = data.frame(table(xx[,2]) / nrow(xx))
-  frq$Freq = round(frq$Freq * 100, 1)
-  plt = plt + geom_text(data = frq,
-                        mapping = aes(x = Var1,
-                                      y = max(dx$Freq),
-                                      label = Freq),
-                        col = 'black')
-  
+  if(!proportion) {
+    
+    frq = data.frame(table(xx[,2]) / nrow(xx))
+    frq$Freq = round(frq$Freq * 100, 1)
+    plt = plt + geom_text(data = frq,
+                          mapping = aes(x = Var1,
+                                        y = max(dx$Freq),
+                                        label = Freq),
+                          col = 'black')
+    
+  }
+
   # 
   return(plt)
   

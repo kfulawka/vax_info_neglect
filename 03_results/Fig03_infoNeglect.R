@@ -25,6 +25,23 @@ ineg = aggregate(ineg ~ covid_vax_attitude + sub,
 table(ineg$covid_vax_attitude, ineg$ineg == 0)
 prop.table(table(ineg$covid_vax_attitude, ineg$ineg == 0), 1) * 100
 
+# info neglect by vax approval in us
+pr_d$ineg2 = factor(pr_d$ineg,
+                    levels = levels(pr_d$ineg),
+                    labels = c('no', 'yes', 'yes'))
+pr_d$vax2 = factor(pr_d$vax,
+                   levels = sort(unique(pr_d$vax)),
+                   labels = c('us-na', 'us-na', 'us-a', 'us-na', 
+                              'us-a', 'us-a', 'us-na', 'us-na'))
+
+tt = table(pr_d$vax2, pr_d$ineg2)
+pt = prop.table(tt, 1)
+pt * 100
+# tt = table(pr_d$vax2, pr_d$ineg2, pr_d$covid_vax_attitude)
+# pt = prop.table(tt, c(1, 3))
+# pt[,'yes',] * 100
+
+
 # information neglect and vax attitudes -----------------------------------
 
 load("01_statistical_modeling/02_information_neglect.RData")
@@ -105,13 +122,13 @@ plt_ineg_type_pp = ggplot(pp,
             show.legend = F,
             size = 3) +
   coord_polar(theta = "y") +
-  scale_fill_manual(name = 'Information neglect',
+  scale_fill_manual(name = 'Deliberate ignorance',
                     # values = turbo(3, .5),
                     values = c(rgb(0, 0, 0, .5), rgb(.5, .5, .5, .5), rgb(1, 1, 1, .5)),
-                    labels = c('Complete', 'Selective', 'None')) +
-  scale_color_manual(name = 'Information neglect',
+                    labels = c('Full', 'Partial', 'None')) +
+  scale_color_manual(name = 'Deliberate ignorance',
                     values = turbo(3, 1),
-                    labels = c('Complete', 'Selective', 'None')) +
+                    labels = c('Full', 'Partial', 'None')) +
   ylab('Proportion of decisions') +
   facet_wrap(~effect1__) +
   theme_void() +
@@ -211,8 +228,8 @@ co_se_ce_plts = lapply(names(pd_ce), function(m) {
     scale_y_continuous('P(accept)', 
                        breaks = seq(0, 1, by = .20),
                        limits = c(0, 1)) +
-    scale_x_discrete('Information neglect',
-                     labels = c('Complete', 'Selective', 'None')) +
+    scale_x_discrete('Deliberate ignorance',
+                     labels = c('Full', 'Partial', 'None')) +
     ggtitle(m) +
     labs(shape = '') +
     theme_bw() +

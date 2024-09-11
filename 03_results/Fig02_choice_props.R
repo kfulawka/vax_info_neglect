@@ -7,8 +7,6 @@ library(brms)
 library(future.apply)
 # library(emmeans)
 
-source('03_results/functions/99_fig_to_pdf.R')
-
 # data --------------------------------------------------------------------
 
 # data prepared for the analyses
@@ -29,9 +27,9 @@ nn = c(vax = 'Vaccine',
        # race = 'Race', 
        education = 'Education',
        income = 'Income', 
-       covid_vax_no = 'Number of vaccinations',
-       covid_no = 'I had COVID',
-       get_covid = 'I will get COVID'
+       covid_vax_no = 'Prior C-19 vaccinations',
+       covid_no = 'I had C-19',
+       get_covid = 'I will get C-19'
 )
 
 
@@ -119,6 +117,55 @@ plts = lapply(mod_preds, function(x) {
   
 }); names(plts) = mod_preds
 
+
+# version two of attiutde x vax interaction (for npj revision) ------------
+
+cv_vax2 = conditional_effects(m01_props,
+                         effects = 'covid_vax_attitude:vax',
+                         conditions = cc)[[1]]
+
+
+cv_vax2$vax = factor(cv_vax2$vax, 
+                      levels = c('Sinovac', 'CanSino Biologics', 'Johnson & Johnson', 'AstraZeneca', 
+                                 'Novavax', 'Moderna', 'Bharat Biotech', 'BioNTech/Pfizer'), 
+                      ordered = T)
+
+# data
+cv_vax2_o = aggregate(choice ~ covid_vax_attitude + vax,
+                      data = d,
+                      FUN = mean)
+
+# pred post probs
+cv_vax2_plt = ggplot(cv_vax2,
+               mapping = aes(y = vax,
+                             color = covid_vax_attitude)) +
+  geom_linerange(mapping = aes(xmin = lower__,
+                               xmax = upper__,),
+                 linewidth = .5,
+                 alpha = .7,
+                 show.legend = F) +
+  geom_point(mapping = aes(x = estimate__),
+             shape = 3,
+             show.legend = F) +
+  geom_point(data = cv_vax2_o,
+             mapping = aes(x = choice),
+             shape = 4) +
+  ylab('') +
+  facet_wrap(~covid_vax_attitude) +
+  scale_x_continuous('P(accept)',
+                     breaks = seq(0, 1, .2),
+                     limits = 0:1) +
+  theme_bw() +
+  theme(strip.background = element_blank(),
+        strip.text = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = c(.22, .7),
+        legend.background = element_rect(fill = NA),
+        legend.key = element_rect(fill = NA))
+
+
+
 # into single panel -------------------------------------------------------
 
 fig02_top = (plts$education | plts$politics | plts$income)
@@ -127,7 +174,7 @@ fig02_mid = (plts$age_c | plts$covid_vax_no | plts$covid_no | plts$get_covid) +
   plot_layout(nrow = 1, widths = c(4, 2.9, 2.3, 2.3)) &
   theme(plot.margin = unit(c(16.5, 5.5, 5.5, 5.5), 'pt'))
 
-fig02_bottom = (plts$covid_vax_attitude | plts$`vax:covid_vax_attitude`) +
+fig02_bottom = (plts$covid_vax_attitude | cv_vax2_plt) +
 plot_layout(nrow = 1, widths = c(1, 3)) &
   theme(plot.margin = unit(c(16.5, 5.5, 5.5, 5.5), 'pt'))
   
@@ -136,7 +183,8 @@ fig02 = fig02_top / fig02_mid / fig02_bottom +
   plot_layout(heights = c(1, 1, 1)) 
 
 # save to file
-pdf_save(path = '03_results/figures/Fig02.pdf',
+source('03_results/functions/99_fig_to_pdf.R')
+pdf_save(path = '03_results/figures/Fig02_v2.pdf',
          fig = fig02,
          height = 11,
          width = 16,

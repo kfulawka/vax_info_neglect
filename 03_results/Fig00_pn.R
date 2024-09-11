@@ -16,7 +16,7 @@ time_plt = ggplot() +
                col = 'darkviolet') +
   geom_text(aes(x = c(0, .35),
                 y = .7,
-                label = c('Information presentation',
+                label = c('Information inspection',
                           'Cognitive processing')),
             hjust = c(0, 0),
             size = 5,
@@ -39,17 +39,20 @@ arrow1_plt = ggplot() +
                arrow = arrow(length = unit(.25, "cm"),
                              type = 'closed'),
                col = 'darkviolet') +
-  geom_segment(aes(x = 0, y = .25, xend = 1, yend = .75),
-               arrow = arrow(length = unit(.25, "cm"),
-                             type = 'closed'),
-               col = 'darkviolet') +
+  # geom_segment(aes(x = 0, y = .25, xend = 1, yend = .75),
+  #              arrow = arrow(length = unit(.25, "cm"),
+  #                            type = 'closed'),
+  #              col = 'darkviolet') +
   geom_segment(aes(x = 0, y = .23, xend = 1, yend = .23),
                arrow = arrow(length = unit(.25, "cm"),
                              type = 'closed'),
                col = 'darkviolet') +
-  geom_text(aes(x = c(.5, .5, .5),
-                y = c(.74, .56, .26),
-                label = c('b', 'c', 'd')),
+  geom_text(aes(x = c(.5, .5),
+                y = c(.74, .26),
+                label = c('b', 'c')),
+                # x = c(.5, .5, .5),
+                # y = c(.74, .56, .26),
+                # label = c('b', 'c', 'd')),
                 size = 5,
                 col = 'darkviolet',
             fontface = 'bold') +
@@ -137,7 +140,7 @@ vax_info_plt = function(t = 'Vaccine info presentation',
                         st = NULL,
                         xp = c('Outcome (x)', '??', '??',
                                'Probability (p)', '??', '??'),
-                        x = rep(c(.25, .75), each = 3),
+                        x = rep(c(.25, .77), each = 3),
                         y = rep(c(5/6, 3/6, 1/6), times = 2)) {
   
   d = data.frame(xp = xp,
@@ -182,18 +185,18 @@ vax_info_plt = function(t = 'Vaccine info presentation',
   
 }
 
-nin = vax_info_plt(t = 'No information neglect',
+nin = vax_info_plt(t = 'No deliberate ignorance',
                         xp = c('Outcome (x)', 'Protection against\ninfection', 'Blood clots',
                                'Probability (p)', '95%', '2/1,000,000'))
 
-apn = vax_info_plt(t = 'Selective information neglect',
-                   st = 'Attentional probability neglect',
+apn = vax_info_plt(t = 'Partial deliberate ignorance',
+                   # st = 'Probability neglect',
                    xp = c('Outcome (x)', 'Protection against\ninfection', 'Blood clots',
                           'Probability (p)', '[not read]', '[not read]'))
 apn = apn + theme(plot.subtitle = element_text(size = 12, color = 'darkorange'))
 
 
-tin = vax_info_plt(t = 'Complete information neglect',
+tin = vax_info_plt(t = 'Full deliberate ignorance',
                    xp = c('Outcome (x)', '[not read]', '[not read]',
                           'Probability (p)', '[not read]', '[not read]'))
 
@@ -213,10 +216,10 @@ dd = data.frame(p = p,
                        pwf(p, d = 1, g = .3)
                        # pwf(p, d = .2, g = .2)
                        ),
-                g = factor(rep(c('Objective', 'Distorted'#, 'Affective'
+                g = factor(rep(c('Objective', 'Nonlinear'#, 'Affective'
                                  ), 
                                each = length(p)),
-                           levels = c('Objective', 'Distorted'#, 'Affective'
+                           levels = c('Objective', 'Nonlinear'#, 'Affective'
                                       ),
                            ordered = T)
 )
@@ -229,12 +232,12 @@ pwf_plt = ggplot(data = dd,
   geom_line(linewidth = 1,
             color = 'darkorange',
             alpha = .9) +
-  scale_linetype_manual(values = c(3, 1)) +
+  scale_linetype_manual(values = c(2, 1)) +
   scale_x_continuous('p [probability]',
                      breaks = seq(0, 1, .2)) +
   scale_y_continuous('w(p)',
                      breaks = seq(0, 1, .2)) +
-  ggtitle('Probability sensitivity') +
+  ggtitle('Probability weighting') +
   theme_bw() +
   theme(legend.position = c(.75, .25),
         legend.background = element_blank(),
@@ -263,10 +266,10 @@ neg_plt = ggplot() +
                linewidth = 1,
                color = 'darkorange') +
   geom_segment(mapping = aes(x = 0,
-                             y = .5, 
+                             y = 0, 
                              xend = 1, 
-                             yend = .5,
-                             linetype = 'Possible'),
+                             yend = 0,
+                             linetype = 'Impossible'),
                linewidth = 1,
                color = 'darkorange') +
   scale_x_continuous('p [probability]',
@@ -275,9 +278,9 @@ neg_plt = ggplot() +
   scale_y_continuous('w(p)',
                      breaks = seq(0, 1, .2),
                      limits = 0:1) +
-  scale_linetype_manual(name = 'Outcome seems', 
+  scale_linetype_manual(name = 'Outcome treated as', 
                         values = c(1, 3)) +
-  ggtitle('Decisional probability neglect') +
+  ggtitle('Probability neglect') +
   theme_bw() +
   theme(legend.position = c(.5, .73),
         legend.background = element_rect(fill = NA),
@@ -294,7 +297,7 @@ neg_plt = ggplot() +
            ymin = 0, ymax = 1,
            fill = rgb(.1, .1, .9, .3)) +
   geom_text(data = data.frame(x = c(0, .5),
-                              y = c(.1, .1),
+                              y = c(.3, .3),
                               l = c('Probabilities of\nside effects',
                                     'Vaccine\neffectiveness')),
             mapping = aes(x = x, y = y, label = l),
@@ -336,7 +339,7 @@ v_plt = ggplot(data = data.frame(x = c(-5:-1, 1:5),
   scale_color_manual(name = "Outcome",
                      values = c(rgb(.1, .1, .9, .5),
                                 rgb(.9, .1, .1, .5))) +
-  scale_x_continuous('a [affect rating]',
+  scale_x_continuous('a [affect rating of x]',
                      breaks = -5:5) +
   scale_y_continuous('v(a)',
                      breaks = seq(-10, 10, 2),
@@ -351,7 +354,6 @@ v_plt = ggplot(data = data.frame(x = c(-5:-1, 1:5),
         panel.border = element_rect(colour = "black", 
                                     fill = NA,
                                     linewidth = 2))
-
 
 # choice ------------------------------------------------------------------
 
@@ -374,7 +376,7 @@ choice_plt = ggplot() +
 # figure ------------------------------------------------------------------
 
 f0a = (tin / ps / apn / ps / nin) +
-  plot_layout(heights = c(1, .15, 1.1, .15, 1))
+  plot_layout(heights = c(1, .15, 1, .15, 1))
 
 f0b = ((arrow1_plt | (neg_plt / pwf_plt) | arrow2_plt )) + 
   plot_layout(widths = c(.45, 1, .7))

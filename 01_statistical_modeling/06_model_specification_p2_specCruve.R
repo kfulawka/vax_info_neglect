@@ -3,16 +3,17 @@ library(ggplot2)
 library(patchwork)
 library(data.table)
 
-source('03_results/functions/99_fig_to_pdf.R')
-
 # models  -----------------------------------------------------------------
 
 load('01_statistical_modeling/03_choice_info_neglect_spec_curve.RData') # v2 contains covid_vax_no---the results are the same
 
 mm = m03_co_in_spec_curve
 m_preds = c('ineg', 'b_pn', 'se_ext_pn', 'se_sev_pn', 'se_mild_pn')
+m_pr_name = c('Deliberate ignor.', 'PN benefits', 'PN extreme se',
+              'PN severe se', 'PN mild se')
+names(m_pr_name) = m_preds
 
-rm(list = setdiff(ls(), c('m_preds', 'mm')))
+rm(list = setdiff(ls(), c('m_preds', 'm_pr_name', 'mm')))
 
 # extract relevant coefficients -------------------------------------------
 
@@ -136,7 +137,7 @@ spec_curves_plts = lapply(m_preds, function(pr) {
                        limits = c(1/3, 3),
                        trans = 'log2') +
     guides(color = 'none') +
-    ggtitle(n_preds[pr]) +
+    ggtitle(m_pr_name[pr]) +
     theme(axis.title.x = element_blank(),
           axis.text.x = element_blank())
   
@@ -223,6 +224,7 @@ spec_curves_plts = lapply(m_preds, function(pr) {
 # final figure
 fig_spec_curv = wrap_plots(spec_curves_plts, nrow = 1)
 
+source('03_results/functions/99_fig_to_pdf.R')
 pdf_save(path = '04_online_supplement/02_statistical_modeling/model_specification_analyses/Fig_spec_curve.pdf',
          fig = fig_spec_curv,
          scale = 1.4,

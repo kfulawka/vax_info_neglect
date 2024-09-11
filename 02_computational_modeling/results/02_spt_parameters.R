@@ -70,7 +70,7 @@ ip = lapply(vax_g_n, function(g) {
 
 # 
 par_d_plt = c('gam', 'beta')
-par_tt = c('Probability sensitivity', 'Loss aversion')
+par_tt = c('Probability weighting', 'Loss aversion')
 par_xx = c('\u03B3', '\u03BB')
 # par_xx = c(bquote(gamma), bquote(lambda))
 
@@ -274,7 +274,7 @@ v_plts = lapply(c('anti', 'neu', 'pro'), function(at) {
     scale_fill_manual(values = c(rgb(1, .1, .1, .7),
                                  rgb(.5, .5, .5, .7),
                                  rgb(.1, .1, 1, .7)),
-                      labels = c('Side effects', 'Info neglect', 'Benefits')) +
+                      labels = c('Side effects', 'Ignored', 'Benefits')) +
     
 
     geom_text(data = o_neg[o_neg$covid_vax_attitude == at, ],

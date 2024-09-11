@@ -48,7 +48,6 @@ m02_loos = lapply(names(m02_in_null), function(x) {
 }); names(m02_loos) = names(m02_in_null)
 
 # affect ratings models
-# info neglect results
 m04_loos = lapply(names(m04_ar), function(x) {
   
     res = list(m1 = loo(m04_ar[[x]], moment_match = TRUE),
@@ -67,10 +66,10 @@ m02_ineg_fig = elpd_comp_fig(elpd_loo_comparison(m02_loos$ineg),
                              outcome_name = 'Info neglect [Fig. 4a]')
 
 m02_apn_se_fig = elpd_comp_fig(elpd_loo_comparison(m02_loos$se_pn),
-                               outcome_name = 'APN side effects [Fig. 5a]')
+                               outcome_name = 'PN side effects [Fig. 5a]')
 
 m02_apn_b_fig = elpd_comp_fig(elpd_loo_comparison(m02_loos$b_pn),
-                              outcome_name = 'APN benefits [Fig. 5a]')
+                              outcome_name = 'PN benefits [Fig. 5a]')
 
 m04_extreme_se_fig = elpd_comp_fig(elpd_loo_comparison(m04_loos$extreme),
                                    outcome_name = 'AR extreme SE [Fig. 6]')

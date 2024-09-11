@@ -32,8 +32,6 @@ md$covid_vax_attitude = as.numeric(as.factor(md$covid_vax_attitude))
 # order again
 md = md[order(md$sub, md$vax), ]
 
-#
-
 # list with data
 dl = list(anti = list(),
           neu = list(),

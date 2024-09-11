@@ -25,7 +25,7 @@ save_p = '04_online_supplement/02_statistical_modeling/model_specification_analy
 
 # total info neglect
 in_plt = comp_par_mods(m02_in$ineg,
-                       outcome = 'Information neglect (Fig. 4a)')
+                       outcome = 'Deliberate ignorance (Fig. 4a)')
 
 # pdf_save(path = paste0(save_p, 'Fig4a_covid_attitude_demo_info_neglect.pdf'),
 #          fig = in_plt,
@@ -35,7 +35,7 @@ in_plt = comp_par_mods(m02_in$ineg,
 
 # APN side effects
 se_pn_plt = comp_par_mods(m02_in$se_pn,
-                       outcome = 'APN side effects (Fig. 5a)')
+                       outcome = 'PN side effects (Fig. 5a)')
 
 se_pn_plt = se_pn_plt + theme(axis.text.y = element_blank(),
                               axis.title.y = element_blank())
@@ -49,7 +49,7 @@ se_pn_plt = se_pn_plt + theme(axis.text.y = element_blank(),
 
 # APN side effects
 b_pn_plt = comp_par_mods(m02_in$b_pn,
-                         outcome = 'APN benefits (Fig. 5a)')
+                         outcome = 'PN benefits (Fig. 5a)')
 
 b_pn_plt = b_pn_plt + theme(axis.text.y = element_blank(),
                             axis.title.y = element_blank())
@@ -79,7 +79,7 @@ pdf_save(path = paste0(save_p, 'Fig4a_5a_covid_attitude_x_in.pdf'),
 
 # APN side effects
 accept_in = comp_par_mods(m03_co_in[c(2, 4)],
-                          outcome = 'Vax accept and info neglect (Fig. 4b and 5b)')
+                          outcome = 'Vaccine acceptance ~ deliberate ignorance and probability neglect (Fig. 4b and 5b)')
 
 # save to file
 pdf_save(path = paste0(save_p, 'Fig_covid_attitude_demo_accept_infoNeglect.pdf'),

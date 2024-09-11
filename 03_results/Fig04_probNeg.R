@@ -116,7 +116,7 @@ pn_ce_plt = ggplot(pn_va,
   scale_y_continuous('Proportion of decisions', 
                      breaks = seq(0, .20, by = .02),
                      limits = c(0, .16)) +
-  scale_x_discrete('Attentional probability neglect',
+  scale_x_discrete('Probability neglect',
                    labels = c('Benefits', 'Side effects (SE)')) +
   scale_shape_manual(name = NULL,
                      values = c(6, 4, 3)) +
@@ -231,11 +231,11 @@ co_pnot_plts = lapply(names(sef_mods), function(m) {
     #            # position = position_nudge(x = .25),
     #            alpha = 1) +
     
-    scale_color_manual(name = 'APN in info acquisition', 
+    scale_color_manual(name = 'Probability neglect in\nvaccine evidence inspection', 
                        values = c(rgb(.1, .3, .6, .9),
                                   rgb(.9, .4, .1, .9)),
                        labels = c('No', 'Yes')) +
-    xlab('Attentional probability neglect (APN)') +
+    xlab('Probability neglect') +
     scale_y_continuous(name = 'P(accept)',
                        breaks = seq(0, 1, .2),
                        limits = 0:1) +
@@ -243,10 +243,11 @@ co_pnot_plts = lapply(names(sef_mods), function(m) {
                scales = 'free_x',
                space = 'free_x') +
     theme_bw() +
-    theme(legend.position = c(.35, .77),
+    theme(legend.position = c(.35, .72),
           legend.key = element_rect(fill = NA),
           strip.background = element_blank(),
           strip.text = element_blank(),
+          # legend.direction = "horizontal",
           legend.background = element_rect(fill = rgb(1, 1, 1, 0))
           )
   
@@ -268,13 +269,15 @@ ff$par = factor(ff$par,
                 ordered = T)
 
 ff$par_g = factor(NA,
-                  levels = c('APNs and information neglect (IN)', 
+                  levels = c('Deliberate ignorance (DI)',
+                             'Probability neglect',
                              'Vaccination attitude and history, and vaccine brand', 
                              'Demographics'),
                   ordered = T)
 
 ff$par_g[ff$par %in% grep('vax', ff$par, value = T)] = 'Vaccination attitude and history, and vaccine brand'
-ff$par_g[ff$par %in% grep('pn|ineg', ff$par, value = T)] = 'APNs and information neglect (IN)'
+ff$par_g[ff$par %in% grep('ineg', ff$par, value = T)] = 'Deliberate ignorance (DI)'
+ff$par_g[ff$par %in% grep('pn', ff$par, value = T)] = 'Probability neglect'
 ff$par_g[is.na(ff$par_g)] = 'Demographics'
 
 # adjust par names
@@ -290,8 +293,8 @@ ff$labs[ff$par == 'se_ext_pn1'] = "Extreme SE"
 ff$labs[ff$par == 'se_sev_pn1'] = "Severe SE"
 ff$labs[ff$par == 'se_mild_pn1'] = "Mild SE"
 ff$labs[ff$par == 'b_pn1'] = "Benefit"
-ff$labs[ff$par == 'ineg1'] = "Complete IN"
-ff$labs[ff$par == 'ineg2'] = "Selective IN"
+ff$labs[ff$par == 'ineg1'] = "Full DI"
+ff$labs[ff$par == 'ineg2'] = "Partial DI"
 
 ff$labs[is.na(ff$labs)] = ''
 
@@ -316,13 +319,12 @@ coefs_pnot_plt = ggplot(data = ff,
                 limits = exp(c(-2.302585, 2.302585))
                 ) +
   scale_color_manual(name = '',
-                     values = c('orange', 'black', 'grey')) +
+                     values = c('orange', 'blue', 'black', 'grey')) +
   theme_bw() +
-  theme(axis.text.x = element_text(color = 'orange', 
-                                   angle = 90, 
+  theme(axis.text.x = element_text(angle = 90, 
                                    vjust = .5,
                                    hjust = 1),
-        legend.position = c(.4, .8),
+        legend.position = c(.28, .77),
         legend.title = element_blank(),
         legend.key = element_rect(fill = NA),
         legend.background = element_rect(fill = rgb(1, 1, 1, 0)))
@@ -340,8 +342,8 @@ apn_at_ff = lapply(names(sef_mods)[-1], function(a) {
   ff$labs[ff$par == 'se_sev_pn1'] = "Severe SE"
   ff$labs[ff$par == 'se_mild_pn1'] = "Mild SE"
   ff$labs[ff$par == 'b_pn1'] = "Benefit"
-  ff$labs[ff$par == 'ineg1'] = "Complete IN"
-  ff$labs[ff$par == 'ineg2'] = "Selective IN"
+  ff$labs[ff$par == 'ineg1'] = "Full DI"
+  ff$labs[ff$par == 'ineg2'] = "Partial DI"
   
   ff = ff[!is.na(ff$labs), ]
   
@@ -372,15 +374,15 @@ coefs_pnot_sep_plt = ggplot(data = apn_at_ff,
                   show.legend = F,
                   position = position_dodge(.5)) +
   scale_x_discrete(name = '...by vaccination attitude',
-                   labels = c('Mild SE', 'Complete IN', 'Severe SE',
-                              'Selective IN', 'Benefit', 'Extreme SE')) +
+                   labels = c('Mild SE', 'Full DI', 'Severe SE',
+                              'Partial DI', 'Benefit', 'Extreme SE')) +
   scale_y_log10('',
                 breaks = round( exp(log(c(1/10, 1/4, 1/2, 1, 2, 4, 10))), 2),
                 limits = exp(c(-2.302585, 2.302585))) +
   scale_color_manual(name = '',
                      values = viridis(3, .7)) +
   theme_bw() +
-  theme(axis.text.x = element_text(color = 'orange', 
+  theme(axis.text.x = element_text(color = 'black', 
                                    angle = 90, 
                                    vjust = .5,
                                    hjust = 1),
@@ -398,7 +400,8 @@ fig04b = ( coefs_pnot_plt | coefs_pnot_sep_plt ) +
   plot_layout(widths = c(2.5, 1)) & 
   theme(plot.margin = unit(c(16.5, 5.5, 5.5, 5.5), 'pt'))
 
-fig04 = (fig04t / fig04b) +
+fig04 = (fig04t / fig04b)  +
+  plot_layout(heights = c(5, 5.5)) +
   plot_annotation(tag_levels = 'a') &
   theme(plot.tag.position = c(0, 1),
         plot.tag = element_text(face = 'bold')) 
@@ -407,9 +410,10 @@ fig04 = (fig04t / fig04b) +
 source('03_results/functions/99_fig_to_pdf.R')
 pdf_save(path = '03_results/figures/Fig04.pdf',
          fig = fig04,
-         height = 10,
+         height = 10.5,
          width = 16,
          scale = 1.4)
+
 # # spudm figs --------------------------------------------------------------
 # 
 # # save to file
